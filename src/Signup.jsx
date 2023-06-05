@@ -2,10 +2,10 @@ import React from 'react';
 import { createClient } from '@supabase/supabase-js'
 import { api_url } from './supaConstants';
 
+const supabase = createClient(api_url, process.env.REACT_APP_SUPABASE_ANON_KEY)
+
 export const Signup = (props) => {
 
-
-    const supabase = createClient(api_url, process.env.REACT_APP_SUPABASE_ANON_KEY)
 
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
