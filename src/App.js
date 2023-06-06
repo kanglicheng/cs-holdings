@@ -1,14 +1,14 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
-import {Signup} from './Signup';
+import { Signup } from './Signup';
 
 function App() {
-  return (
-    <div className="App">
-      <h1>React App</h1>
-      <Signup />
-    </div>
-  );
+	return (
+		<div className="App">
+			<h1>React App</h1>
+			<Signup />
+		</div>
+	);
 }
 
 export default App;
