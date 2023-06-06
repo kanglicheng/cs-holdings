@@ -19,12 +19,33 @@
 		"ecmaVersion": "latest",
 		"sourceType": "module"
 	},
-	"plugins": ["react", "@typescript-eslint"],
+	"plugins": ["react", "@typescript-eslint", "simple-import-sort"],
 	"rules": {
 		"indent": ["error", "tab"],
 		"linebreak-style": ["error", "unix"],
 		"quotes": ["error", "single"],
 		"semi": ["error", "always"],
-		"prefer-const": ["warn"]
+		"prefer-const": ["warn"],
+		//if we want to group imports can use below.
+		"simple-import-sort/imports": [
+			"error",
+			{
+				"groups": [
+					// Packages `react` related packages come first.
+					["^react"],
+					// Internal packages.
+					["^(@|components)(/.*|$)"],
+					["^@leafygreen-ui", "^@?\\w"],
+					// Side effect imports.
+					["^\\u0000"],
+					// Parent imports. Put `..` last.
+					["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+					// Other relative imports. Put same-folder imports and `.` last.
+					["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+					// Style imports.
+					["^.+\\.?(css)$"]
+				]
+			}
+		]
 	}
 }
