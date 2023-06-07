@@ -35,7 +35,7 @@ export const Signin = () => {
 				<input
 					id="email"
 					onChange={(e) => setEmail(e.target.value)}
-					type="text"
+					type="username"
 					placeholder="Email address"
 					value={email}
 				/>
@@ -44,7 +44,7 @@ export const Signin = () => {
 				<input
 					id="password"
 					onChange={(e) => setPassword(e.target.value)}
-					type="password"
+					type="current-password"
 					placeholder="Password"
 					value={password}
 				/>

@@ -19,14 +19,26 @@ export const Signup = () => {
 
 	return (
 		<div>
-			<form>
-				<h3>Create an account</h3>
-				<label>Email </label>
-				<input onChange={(e) => setEmail(e.target.value)} type="text" />
+			<form onSubmit={handleSignup}>
+				<h3>Create an Account</h3>
+				<label htmlFor="email">Email </label>
+				<input
+					id="email"
+					onChange={(e) => setEmail(e.target.value)}
+					type="username"
+					placeholder="Email address"
+					value={email}
+				/>
 
-				<label>Password </label>
-				<input onChange={(e) => setPassword(e.target.value)} type="password" />
-				<button onClick={handleSignup}>Sign up</button>
+				<label htmlFor="password">Password </label>
+				<input
+					id="password"
+					onChange={(e) => setPassword(e.target.value)}
+					type="current-password"
+					placeholder="Password"
+					value={password}
+				/>
+				<button type="submit">Sign up</button>
 			</form>
 		</div>
 	);
