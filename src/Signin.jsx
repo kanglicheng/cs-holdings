@@ -1,11 +1,6 @@
 import React from 'react';
 
-import { createClient } from '@supabase/supabase-js';
-
-import { api_url } from './supaConstants';
-
-// eslint-disable-next-line no-undef
-const supabase = createClient(api_url, process.env.REACT_APP_SUPABASE_ANON_KEY);
+import { supabase } from './client';
 
 export const Signin = () => {
 	const [email, setEmail] = React.useState('');

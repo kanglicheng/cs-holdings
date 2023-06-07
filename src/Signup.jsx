@@ -1,16 +1,8 @@
 import React from 'react';
 
-import { createClient } from '@supabase/supabase-js';
-
-import { api_url } from './supaConstants';
+import { supabase } from './client';
 
 export const Signup = () => {
-	const supabase = createClient(
-		api_url,
-		// eslint-disable-next-line no-undef
-		process.env.REACT_APP_SUPABASE_ANON_KEY
-	);
-
 	const [email, setEmail] = React.useState('');
 	const [password, setPassword] = React.useState('');
 
