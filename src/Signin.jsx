@@ -1,11 +1,6 @@
 import React from 'react';
 
-import { createClient } from '@supabase/supabase-js';
-
-import { api_url } from './supaConstants';
-
-// eslint-disable-next-line no-undef
-const supabase = createClient(api_url, process.env.REACT_APP_SUPABASE_ANON_KEY);
+import { supabase } from './client';
 
 export const Signin = () => {
 	const [email, setEmail] = React.useState('');
@@ -22,9 +17,6 @@ export const Signin = () => {
 			if (error) {
 				throw error;
 			}
-			// Clear form fields after successful sign-in
-			setEmail('');
-			setPassword('');
 		} catch (error) {
 			// Handle error gracefully and provide user feedback
 			setError(error.message);
@@ -40,7 +32,7 @@ export const Signin = () => {
 				<input
 					id="email"
 					onChange={(e) => setEmail(e.target.value)}
-					type="text"
+					type="username"
 					placeholder="Email address"
 					value={email}
 				/>
@@ -49,7 +41,7 @@ export const Signin = () => {
 				<input
 					id="password"
 					onChange={(e) => setPassword(e.target.value)}
-					type="password"
+					type="current-password"
 					placeholder="Password"
 					value={password}
 				/>
