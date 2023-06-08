@@ -1,15 +1,14 @@
 import React from 'react';
 
-import LogRocket from 'logrocket';
-
+//import LogRocket from 'logrocket';
 import { supabase } from './client';
+import { PropertyPhotos } from './PropertyPhotos';
 import { Signin } from './Signin';
 import { Signup } from './Signup';
 
 import './App.css';
 
-LogRocket.init('6gzskl/cs-holdings-prod');
-
+//LogRocket.init('6gzskl/cs-holdings-prod');
 
 export default function App() {
 	// Manage login state
@@ -32,6 +31,10 @@ export default function App() {
 	return (
 		<div className="App">
 			<h1>CS Holdings</h1>
+			<div style={{ display: 'flex', justifyContent: 'center' }}>
+				<PropertyPhotos />
+			</div>
+
 			{session && <h3>{session.user.email}</h3>}
 			{!session && <Signup />}
 			{!session && <Signin />}
