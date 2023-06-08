@@ -34,6 +34,9 @@ export const PropertyPhotos = () => {
 							height: 250,
 						},
 					});
+				if (error) {
+					break;
+				}
 				urls.push(data.signedUrl);
 			}
 			setPhotoUrls(urls);
