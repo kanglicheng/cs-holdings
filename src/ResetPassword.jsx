@@ -24,20 +24,19 @@ export default function ResetPassword() {
 		}
 	};
 
-	const handlePasswordChange = (event) => {
-		setNewPassword(event.target.value);
-	};
-
 	return (
 		<form onSubmit={handleFormSubmit}>
-			<label>
-				New Password:
-				<input
-					type="password"
-					value={newPassword}
-					onChange={handlePasswordChange}
-				/>
-			</label>
+			<label htmlFor="password">New Password </label>
+			<input
+				id="password"
+				type="password"
+				autoComplete="new-password"
+				minLength="6"
+				placeholder="Password"
+				value={newPassword}
+				onChange={(e) => setNewPassword(e.target.value)}
+				required
+			/>
 			<button type="submit">Submit</button>
 		</form>
 	);
