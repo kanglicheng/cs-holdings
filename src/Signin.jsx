@@ -31,19 +31,23 @@ export const Signin = () => {
 				<label htmlFor="email">Email </label>
 				<input
 					id="email"
-					onChange={(e) => setEmail(e.target.value)}
-					type="username"
+					type="email"
 					placeholder="Email address"
 					value={email}
+					onChange={(e) => setEmail(e.target.value)}
+					required
 				/>
 
 				<label htmlFor="password">Password </label>
 				<input
 					id="password"
-					onChange={(e) => setPassword(e.target.value)}
-					type="current-password"
+					type="password"
+					autoComplete="current-password"
+					minLength="6"
 					placeholder="Password"
 					value={password}
+					onChange={(e) => setPassword(e.target.value)}
+					required
 				/>
 				<button type="submit">Sign in</button>
 			</form>
