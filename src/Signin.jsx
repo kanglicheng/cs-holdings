@@ -17,9 +17,6 @@ export const Signin = () => {
 			if (error) {
 				throw error;
 			}
-			// Clear form fields after successful sign-in
-			setEmail('');
-			setPassword('');
 		} catch (error) {
 			// Handle error gracefully and provide user feedback
 			setError(error.message);
