@@ -3,16 +3,8 @@ import React from 'react';
 import { supabase } from './client';
 
 const getURL = () => {
-	// eslint-disable-next-line no-undef
-	let url = process.env.NEXT_PUBLIC_SITE_URL ?? null; // Set this to your site URL in production env.
-	// eslint-disable-next-line no-undef
-	url = url ?? process.env.NEXT_PUBLIC_VERCEL_URL ?? null; // Automatically set by Vercel.
-	url = url ?? 'http://localhost:3000/'; // local env
-
-	// Make sure to include `https://` when not localhost.
-	url = url.includes('http') ? url : `https://${url}`;
-	// Make sure to including trailing `/`.
-	url = url.charAt(url.length - 1) === '/' ? url : `${url}/`;
+	const currentUrl = window.location.href;
+	const url = new URL(currentUrl).origin;
 	return url;
 };
 
