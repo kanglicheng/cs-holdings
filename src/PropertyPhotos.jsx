@@ -24,10 +24,18 @@ export const PropertyPhotos = () => {
 	React.useEffect(() => {
 		const photoLocations = photoNames.map((name) => `lucky-trail/${name}`);
 		const getPhotoUrls = async () => {
-			const { data, error } = await supabase.storage
-				.from('property-photos')
-				.createSignedUrls(photoLocations, 60);
-			const urls = data?.map((d) => d.signedUrl);
+			const urls = [];
+			for (const item of photoLocations) {
+				const { data, error } = await supabase.storage
+					.from('property-photos')
+					.createSignedUrl(item, 90000, {
+						transform: {
+							width: 200,
+							height: 250,
+						},
+					});
+				urls.push(data.signedUrl);
+			}
 			setPhotoUrls(urls);
 		};
 
