@@ -9,7 +9,6 @@ import {
 } from '@mantine/core';
 
 import App from './App';
-import { ErrorPage } from './ErrorPage';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
@@ -17,7 +16,7 @@ const router = createBrowserRouter([
 	{
 		path: '/',
 		element: <App />,
-		errorElement: <ErrorPage />,
+		//errorElement: <ErrorPage />,
 		children: [
 			{
 				path: '/properties',

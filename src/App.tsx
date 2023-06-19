@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import {
 	ActionIcon,
@@ -19,6 +19,8 @@ import {
 } from '@tabler/icons-react';
 
 import './App.css';
+import { Signin } from './Signin';
+import { Signup } from './Signup';
 import { supabase } from './client';
 
 //LogRocket.init('6gzskl/cs-holdings-prod');
@@ -41,6 +43,15 @@ function App(): JSX.Element {
 		await supabase.auth.signOut();
 	};
 	const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+
+	if (!session) {
+		return (
+			<div>
+				<Signup />
+				<Signin />
+			</div>
+		);
+	}
 
 	return (
 		<AppShell
@@ -87,9 +98,11 @@ interface MainLinkProps {
 	icon: React.ReactNode;
 	color: string;
 	label: string;
+	route?: string;
 }
 
-function MainLink({ icon, color, label }: MainLinkProps) {
+function MainLink({ icon, color, label, route }: MainLinkProps) {
+	const navigate = useNavigate();
 	return (
 		<UnstyledButton
 			sx={(theme) => ({
@@ -106,7 +119,14 @@ function MainLink({ icon, color, label }: MainLinkProps) {
 							? theme.colors.dark[6]
 							: theme.colors.gray[0],
 				},
+				'&:focus': {
+					backgroundColor:
+						theme.colorScheme === 'dark'
+							? theme.colors.dark[4]
+							: theme.colors.green[1],
+				},
 			})}
+			onClick={() => navigate(route ? route : '/')}
 		>
 			<Group>
 				<ThemeIcon color={color} variant="light">
@@ -125,6 +145,7 @@ function MainLinks() {
 			icon: <IconBuildingEstate size="1rem" />,
 			color: 'blue',
 			label: 'Properties',
+			route: '/properties',
 		},
 	];
 	const links = data.map((link) => <MainLink {...link} key={link.label} />);

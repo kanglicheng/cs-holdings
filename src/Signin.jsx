@@ -43,7 +43,7 @@ export const Signin = () => {
 					id="password"
 					type="password"
 					autoComplete="current-password"
-					minLength="6"
+					minLength={6}
 					placeholder="Password"
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
