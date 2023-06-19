@@ -1,0 +1,12 @@
+{
+	"compilerOptions": {
+		"jsx": "react",
+		"target": "ES2022",
+		"module": "commonjs",
+		"outDir": "tsout",
+		"sourceMap": true,
+		"moduleResolution": "node",
+		"esModuleInterop": true
+	},
+	"exclude": ["tsout"]
+}

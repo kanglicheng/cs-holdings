@@ -2,5 +2,19 @@
 	"singleQuote": true,
 	"useTabs": true,
 	"trailingComma": "es5",
-	"arrowParens": "always"
+	"arrowParens": "always",
+	"importOrder": [
+		"^react",
+		"^@?\\w",
+		"^(@|components)(/.*|$)",
+		"^\\u0000",
+		"^\\.\\.(?!/?$)",
+		"^\\.\\./?$",
+		"^\\./(?=.*/)(?!/?$)",
+		"^\\.(?!/?$)",
+		"^\\./?$",
+		"^.+\\.?(css)$"
+	],
+	"importOrderSeparation": true,
+	"importOrderSortSpecifiers": true
 }

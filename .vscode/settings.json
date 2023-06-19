@@ -23,5 +23,10 @@
 	"editor.codeActionsOnSave": {
 		"source.fixAll": true,
 		"source.organizeImports": true
-	}
+	},
+	"files.exclude": {
+		"**/*.js": { "when": "$(basename).ts" },
+		"**/**.js": { "when": "$(basename).tsx" }
+	},
+	"typescript.tsdk": "node_modules/typescript/lib"
 }
