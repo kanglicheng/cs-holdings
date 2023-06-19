@@ -8,7 +8,7 @@ import {
 	MantineProvider,
 } from '@mantine/core';
 
-import { App } from './App';
+import App from './App';
 import { ErrorPage } from './ErrorPage';
 import './index.css';
 import reportWebVitals from './reportWebVitals';

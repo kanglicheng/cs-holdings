@@ -23,7 +23,7 @@ import { supabase } from './client';
 
 //LogRocket.init('6gzskl/cs-holdings-prod');
 
-export function App(): JSX.Element {
+function App(): JSX.Element {
 	// Manage login state
 	const [session, setSession] = React.useState(null);
 
@@ -130,3 +130,5 @@ function MainLinks() {
 	const links = data.map((link) => <MainLink {...link} key={link.label} />);
 	return <div>{links}</div>;
 }
+
+export default App;
