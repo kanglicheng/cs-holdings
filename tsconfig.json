@@ -3,10 +3,10 @@
 		"jsx": "react",
 		"target": "ES2022",
 		"module": "commonjs",
-		"outDir": ".tsout",
+		"outDir": "src/ts-out/",
 		"sourceMap": true,
 		"moduleResolution": "node",
 		"esModuleInterop": true
 	},
-	"exclude": [".tsout"]
+	"exclude": ["src/ts-out/"]
 }
