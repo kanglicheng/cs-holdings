@@ -18,7 +18,7 @@ const signOut = () => supabase.auth.signOut();
 const getURL = () => {
 	const currentUrl = window.location.href;
 	const url = new URL(currentUrl).origin;
-	return `${url}/update-password`;
+	return `${url}/account/update-password`;
 };
 
 const passwordReset = (email) =>
