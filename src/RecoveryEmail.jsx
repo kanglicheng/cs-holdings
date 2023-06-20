@@ -1,50 +1,72 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-import { supabase } from './client';
+import {
+	Alert,
+	Anchor,
+	Box,
+	Button,
+	Center,
+	Container,
+	Group,
+	Paper,
+	Stack,
+	TextInput,
+	Title,
+} from '@mantine/core';
+import { IconArrowLeft } from '@tabler/icons-react';
 
-const getURL = () => {
-	const currentUrl = window.location.href;
-	const url = new URL(currentUrl).origin;
-	return url;
-};
+import { useAuth } from './context/AuthProvider';
 
 export default function RecoveryEmail() {
-	const [email, setEmail] = React.useState('');
-	const [error, setError] = React.useState(null);
+	const { passwordReset } = useAuth();
+	const [loading, setLoading] = React.useState(false);
+	const [msg, setMsg] = React.useState('');
+	const emailRef = React.useRef(null);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const { error } = await supabase.auth.resetPasswordForEmail(email, {
-				redirectTo: getURL(),
-			});
-
-			if (error) {
-				throw error;
-			}
+			setLoading(true);
+			const { data, error } = await passwordReset(emailRef.current.value);
+			if (error) setMsg(error.message);
+			if (data) setMsg('Password reset has been sent to your email');
 		} catch (error) {
-			// Handle error gracefully and provide user feedback
-			setError(error.message);
-			console.error('Error:', error.message);
+			console.error(error.message);
+		} finally {
+			setLoading(false);
 		}
 	};
 
 	return (
-		<div>
-			<form onSubmit={handleSubmit}>
-				<h3>Reset Password</h3>
-				<label htmlFor="email">Email </label>
-				<input
-					id="email"
-					type="email"
-					placeholder="Email address"
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-					required
-				/>
-				<button type="submit">Reset Password</button>
-			</form>
-			{error && <p>Error: {error}</p>}
-		</div>
+		<Container>
+			<Title align="center">Forgot your password?</Title>
+			<Center>Enter your email to get a reset link</Center>
+			<Paper shadow="md" radius="md" p="md" withBorder>
+				<form onSubmit={handleSubmit}>
+					<Stack>
+						<TextInput
+							label="Email"
+							type="email"
+							placeholder="Email address"
+							ref={emailRef}
+							required
+						/>
+						{msg && <Alert>{msg}</Alert>}
+						<Group position="apart">
+							<Anchor component={Link} to={'/login'}>
+								<Center inline>
+									<IconArrowLeft />
+									<Box>Back to the login page</Box>
+								</Center>
+							</Anchor>
+							<Button type="submit" disabled={loading}>
+								Reset password
+							</Button>
+						</Group>
+					</Stack>
+				</form>
+			</Paper>
+		</Container>
 	);
 }

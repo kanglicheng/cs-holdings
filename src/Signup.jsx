@@ -1,49 +1,82 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-import { supabase } from './client';
+import {
+	Alert,
+	Anchor,
+	Button,
+	Container,
+	Paper,
+	PasswordInput,
+	Stack,
+	Text,
+	TextInput,
+	Title,
+} from '@mantine/core';
 
-export const Signup = () => {
-	const [email, setEmail] = React.useState('');
-	const [password, setPassword] = React.useState('');
+import { useAuth } from './context/AuthProvider';
 
-	const handleSignup = async (e) => {
+export default function Signup() {
+	const emailRef = React.useRef(null);
+	const passwordRef = React.useRef(null);
+	const [loading, setLoading] = React.useState(false);
+	const [msg, setMsg] = React.useState('');
+	const { register } = useAuth();
+
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const { error } = await supabase.auth.signUp({
-			email: email,
-			password: password,
-		});
-		if (error) {
-			throw error;
+		try {
+			setLoading(true);
+			const { data, error } = await register(
+				emailRef.current.value,
+				passwordRef.current.value
+			);
+			if (error) setMsg(error.message);
+			else if (data)
+				setMsg(
+					'Registration Successful. Check your email to confirm your account'
+				);
+		} catch (error) {
+			setMsg('Error in Creating Account');
 		}
+		setLoading(false);
 	};
 
 	return (
-		<div>
-			<form onSubmit={handleSignup}>
-				<h3>Create an Account</h3>
-				<label htmlFor="email">Email </label>
-				<input
-					id="email"
-					type="email"
-					placeholder="Email address"
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-					required
-				/>
+		<Container>
+			<Title align="center">Create an Account</Title>
+			<Text align="center">
+				Already have an account?{' '}
+				<Anchor component={Link} to={'/login'}>
+					Log in
+				</Anchor>
+			</Text>
 
-				<label htmlFor="password">Password </label>
-				<input
-					id="password"
-					type="password"
-					autoComplete="new-password"
-					minLength={6}
-					placeholder="Password"
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-					required
-				/>
-				<button type="submit">Sign up</button>
-			</form>
-		</div>
+			<Paper shadow="md" radius="md" p="md" withBorder>
+				<form onSubmit={handleSubmit}>
+					<Stack>
+						<TextInput
+							label="Email"
+							type="email"
+							placeholder="Email address"
+							ref={emailRef}
+							required
+						/>
+						<PasswordInput
+							label="Password"
+							autoComplete="new-password"
+							minLength={6}
+							placeholder="Password"
+							ref={passwordRef}
+							required
+						/>
+						{msg && <Alert>{msg}</Alert>}
+						<Button type="submit" disabled={loading}>
+							Register
+						</Button>
+					</Stack>
+				</form>
+			</Paper>
+		</Container>
 	);
-};
+}

@@ -1,43 +1,59 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { supabase } from './client';
+import {
+	Alert,
+	Button,
+	Container,
+	Paper,
+	PasswordInput,
+	Stack,
+	Title,
+} from '@mantine/core';
+
+import { useAuth } from './context/AuthProvider';
 
 export default function ResetPassword() {
-	const [newPassword, setNewPassword] = useState('');
+	const { updatePassword } = useAuth();
+	const passwordRef = React.useRef(null);
+	const [errorMsg, setErrorMsg] = React.useState('');
+	const [loading, setLoading] = React.useState(false);
+	const navigate = useNavigate();
 
-	const handleFormSubmit = async (event) => {
-		event.preventDefault();
-
+	const handleSubmit = async (e) => {
+		e.preventDefault();
 		try {
-			const { data, error } = await supabase.auth.updateUser({
-				password: newPassword,
-			});
-
-			if (data) {
-				alert('Password updated successfully!');
-			}
-			if (error) {
-				alert('There was an error updating your password.');
-			}
+			setLoading(true);
+			const { data, error } = await updatePassword(passwordRef.current.value);
+			if (error) setErrorMsg(error.message);
+			else if (data) navigate('/');
 		} catch (error) {
-			console.error('An error occurred:', error.message);
+			setErrorMsg(error.message);
 		}
+		setLoading(false);
 	};
 
 	return (
-		<form onSubmit={handleFormSubmit}>
-			<label htmlFor="password">New Password </label>
-			<input
-				id="password"
-				type="password"
-				autoComplete="new-password"
-				minLength="6"
-				placeholder="Password"
-				value={newPassword}
-				onChange={(e) => setNewPassword(e.target.value)}
-				required
-			/>
-			<button type="submit">Submit</button>
-		</form>
+		<Container>
+			<Title align="center">Update Password</Title>
+			<Paper shadow="md" radius="md" p="md" withBorder>
+				<form onSubmit={handleSubmit}>
+					<Stack>
+						<PasswordInput
+							label="New Password"
+							autoComplete="new-password"
+							minLength={6}
+							placeholder="Password"
+							ref={passwordRef}
+							required
+						/>
+						{errorMsg && <Alert>{errorMsg}</Alert>}
+						<Button type="submit" disabled={loading}>
+							Submit
+						</Button>
+					</Stack>
+				</form>
+			</Paper>
+		</Container>
 	);
 }

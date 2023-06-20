@@ -8,6 +8,8 @@ import {
 	MantineProvider,
 } from '@mantine/core';
 
+import AuthProvider from './context/AuthProvider';
+
 import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
@@ -21,6 +23,21 @@ const router = createBrowserRouter([
 			{
 				path: '/properties',
 				element: <div>Properties</div>,
+			},
+			{
+				path: '/login',
+			},
+			{
+				path: '/signup',
+			},
+			{
+				path: '/reset-password',
+			},
+			{
+				path: '/account/update-password',
+			},
+			{
+				path: '/account',
 			},
 		],
 	},
@@ -41,7 +58,9 @@ function Parent() {
 				withGlobalStyles
 				withNormalizeCSS
 			>
-				<RouterProvider router={router} />
+				<AuthProvider>
+					<RouterProvider router={router} />
+				</AuthProvider>
 			</MantineProvider>
 		</ColorSchemeProvider>
 	);
