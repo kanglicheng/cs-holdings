@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, Route, Routes, useNavigate } from 'react-router-dom';
 
 import {
 	ActionIcon,
@@ -19,39 +19,17 @@ import {
 } from '@tabler/icons-react';
 
 import './App.css';
-import { Signin } from './Signin';
-import { Signup } from './Signup';
-import { supabase } from './client';
+import AuthRoute from './AuthRoute';
+import Home from './Home';
+import RecoveryEmail from './RecoveryEmail';
+import ResetPassword from './ResetPassword';
+import Signin from './Signin';
+import Signup from './Signup';
 
 //LogRocket.init('6gzskl/cs-holdings-prod');
 
 function App(): JSX.Element {
-	// Manage login state
-	const [session, setSession] = React.useState(null);
-
-	React.useEffect(() => {
-		supabase.auth.getSession().then(({ data: { session } }) => {
-			setSession(session);
-		});
-
-		supabase.auth.onAuthStateChange((_event, session) => {
-			setSession(session);
-		});
-	}, []);
-
-	const logout = async () => {
-		await supabase.auth.signOut();
-	};
 	const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-
-	if (!session) {
-		return (
-			<div>
-				<Signup />
-				<Signin />
-			</div>
-		);
-	}
 
 	return (
 		<AppShell
@@ -89,6 +67,16 @@ function App(): JSX.Element {
 				},
 			})}
 		>
+			<Routes>
+				<Route element={<AuthRoute />}>
+					<Route path="/" element={<Home />} />
+					<Route path="/account" element={<Home />} />
+					<Route path="/account/update-password" element={<ResetPassword />} />
+				</Route>
+				<Route path="/signup" element={<Signup />} />
+				<Route path="/reset-password" element={<RecoveryEmail />} />
+				<Route path="/login" element={<Signin />} />
+			</Routes>
 			<Outlet />
 		</AppShell>
 	);
