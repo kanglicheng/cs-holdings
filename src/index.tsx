@@ -11,6 +11,10 @@ import {
 import AuthProvider from './context/AuthProvider';
 
 import App from './App';
+import Home from './Home';
+import { Logout } from './Logout';
+import Signin from './Signin';
+import Signup from './Signup';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
@@ -26,9 +30,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: '/login',
-			},
-			{
-				path: '/signup',
+				element: <Signin />,
 			},
 			{
 				path: '/reset-password',
@@ -38,8 +40,17 @@ const router = createBrowserRouter([
 			},
 			{
 				path: '/account',
+				element: <Home />,
 			},
 		],
+	},
+	{
+		path: '/signup',
+		element: <Signup />,
+	},
+	{
+		path: '/logout',
+		element: <Logout />,
 	},
 ]);
 

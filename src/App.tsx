@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet, Route, Routes, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import {
 	ActionIcon,
@@ -14,22 +14,23 @@ import {
 } from '@mantine/core';
 import {
 	IconBuildingEstate,
+	IconHome,
+	IconLogout2,
 	IconMoonStars,
 	IconSun,
+	IconUser,
 } from '@tabler/icons-react';
 
+import { useAuth } from './context/AuthProvider';
+
 import './App.css';
-import AuthRoute from './AuthRoute';
-import Home from './Home';
-import RecoveryEmail from './RecoveryEmail';
-import ResetPassword from './ResetPassword';
 import Signin from './Signin';
-import Signup from './Signup';
 
 //LogRocket.init('6gzskl/cs-holdings-prod');
 
 function App(): JSX.Element {
 	const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+	const { auth } = useAuth();
 
 	return (
 		<AppShell
@@ -67,17 +68,7 @@ function App(): JSX.Element {
 				},
 			})}
 		>
-			<Routes>
-				<Route element={<AuthRoute />}>
-					<Route path="/" element={<Home />} />
-					<Route path="/account" element={<Home />} />
-					<Route path="/account/update-password" element={<ResetPassword />} />
-				</Route>
-				<Route path="/signup" element={<Signup />} />
-				<Route path="/reset-password" element={<RecoveryEmail />} />
-				<Route path="/login" element={<Signin />} />
-			</Routes>
-			<Outlet />
+			{auth ? <Outlet /> : <Signin />}
 		</AppShell>
 	);
 }
@@ -90,9 +81,10 @@ interface MainLinkProps {
 }
 
 function MainLink({ icon, color, label, route }: MainLinkProps) {
-	const navigate = useNavigate();
 	return (
 		<UnstyledButton
+			component={'a'}
+			href={route ? route : '/'}
 			sx={(theme) => ({
 				display: 'block',
 				width: '100%',
@@ -114,7 +106,6 @@ function MainLink({ icon, color, label, route }: MainLinkProps) {
 							: theme.colors.green[1],
 				},
 			})}
-			onClick={() => navigate(route ? route : '/')}
 		>
 			<Group>
 				<ThemeIcon color={color} variant="light">
@@ -130,10 +121,30 @@ function MainLink({ icon, color, label, route }: MainLinkProps) {
 function MainLinks() {
 	const data = [
 		{
+			icon: <IconHome size="1rem" />,
+			color: 'blue',
+			label: 'Home',
+			route: '/home',
+		},
+
+		{
 			icon: <IconBuildingEstate size="1rem" />,
 			color: 'blue',
 			label: 'Properties',
 			route: '/properties',
+		},
+		{
+			icon: <IconUser size="1rem" />,
+			color: 'blue',
+			label: 'Account',
+			route: '/account',
+		},
+		{
+			icon: <IconLogout2 size="1rem" />,
+			color: 'blue',
+			label: 'Logout',
+			route: '/logout',
+			type: 'button',
 		},
 	];
 	const links = data.map((link) => <MainLink {...link} key={link.label} />);

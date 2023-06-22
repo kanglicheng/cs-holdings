@@ -13,7 +13,12 @@ const login = (email, password) =>
 
 const register = (email, password) => supabase.auth.signUp({ email, password });
 
-const signOut = () => supabase.auth.signOut();
+const signOut = async () => {
+	const { error } = await supabase.auth.signOut();
+	if (error) {
+		throw error;
+	}
+};
 
 const getURL = () => {
 	const currentUrl = window.location.href;
