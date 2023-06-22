@@ -10,9 +10,10 @@ import {
 
 import AuthProvider from './context/AuthProvider';
 
-import Home from './Account';
+import Account from './Account';
 import App from './App';
 import { Logout } from './Logout';
+import { Properties } from './Properties';
 import RecoveryEmail from './RecoveryEmail';
 import ResetPassword from './ResetPassword';
 import Signin from './Signin';
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: '/properties',
-				element: <div>Properties</div>,
+				element: <Properties />,
 			},
 			{
 				path: '/login',
@@ -36,7 +37,11 @@ const router = createBrowserRouter([
 			},
 			{
 				path: '/account',
-				element: <Home />,
+				element: <Account />,
+			},
+			{
+				path: '/home',
+				element: <div>Home</div>,
 			},
 		],
 	},

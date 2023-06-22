@@ -42,6 +42,7 @@ export default function Signin() {
 			setError(error.message);
 		} finally {
 			setLoading(false);
+			navigate('/home');
 		}
 	};
 

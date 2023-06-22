@@ -72,7 +72,7 @@ function App(): JSX.Element {
 				},
 			})}
 		>
-			<Outlet />
+			{<Outlet /> || <div>Home</div>}
 		</AppShell>
 	);
 }

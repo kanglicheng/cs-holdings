@@ -5,7 +5,7 @@ import { Anchor, Button, Group, Paper, Stack, Text } from '@mantine/core';
 
 import { useAuth } from './context/AuthProvider';
 
-export default function Home() {
+export default function Account() {
 	const { user, signOut } = useAuth();
 
 	return (
