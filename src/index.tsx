@@ -10,9 +10,11 @@ import {
 
 import AuthProvider from './context/AuthProvider';
 
+import Home from './Account';
 import App from './App';
-import Home from './Home';
 import { Logout } from './Logout';
+import RecoveryEmail from './RecoveryEmail';
+import ResetPassword from './ResetPassword';
 import Signin from './Signin';
 import Signup from './Signup';
 import './index.css';
@@ -33,16 +35,14 @@ const router = createBrowserRouter([
 				element: <Signin />,
 			},
 			{
-				path: '/reset-password',
-			},
-			{
-				path: '/account/update-password',
-			},
-			{
 				path: '/account',
 				element: <Home />,
 			},
 		],
+	},
+	{
+		path: '/account/update-password',
+		element: <ResetPassword />,
 	},
 	{
 		path: '/signup',
@@ -51,6 +51,10 @@ const router = createBrowserRouter([
 	{
 		path: '/logout',
 		element: <Logout />,
+	},
+	{
+		path: '/reset-password',
+		element: <RecoveryEmail />,
 	},
 ]);
 

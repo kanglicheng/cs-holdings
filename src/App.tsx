@@ -32,6 +32,10 @@ function App(): JSX.Element {
 	const { colorScheme, toggleColorScheme } = useMantineColorScheme();
 	const { auth } = useAuth();
 
+	if (!auth) {
+		return <Signin />;
+	}
+
 	return (
 		<AppShell
 			padding="md"
@@ -68,7 +72,7 @@ function App(): JSX.Element {
 				},
 			})}
 		>
-			{auth ? <Outlet /> : <Signin />}
+			<Outlet />
 		</AppShell>
 	);
 }
