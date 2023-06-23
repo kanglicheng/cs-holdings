@@ -34,6 +34,12 @@ export const PropertyCard = ({
 				<Text fw={500}>
 					State: <em>{state}</em>
 				</Text>
+				<Text fw={500}>
+					Zip: <em>{zip}</em>
+				</Text>
+				<Text fw={500}>
+					Investment Type: <em>{type}</em>
+				</Text>
 			</Card.Section>
 		</Card>
 	);

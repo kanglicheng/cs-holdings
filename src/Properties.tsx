@@ -20,8 +20,6 @@ export const Properties = () => {
 		getProperties();
 	}, []);
 
-	console.log(properties);
-
 	return (
 		<Grid>
 			{properties.map((property) => (
