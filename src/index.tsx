@@ -16,6 +16,7 @@ import { Logout } from './Logout';
 import { Properties } from './Properties';
 import RecoveryEmail from './RecoveryEmail';
 import ResetPassword from './ResetPassword';
+import { SetupStepper } from './SetupStepper';
 import Signin from './Signin';
 import Signup from './Signup';
 import './index.css';
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
 	{
 		path: '/reset-password',
 		element: <RecoveryEmail />,
+	},
+	{
+		path: '/invest/setup',
+		element: <SetupStepper />,
 	},
 ]);
 
