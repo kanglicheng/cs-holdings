@@ -13,19 +13,7 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
-import supabase from './client';
-
 export const SetupStepper = () => {
-	React.useEffect(() => {
-		const getPortfolios = async () => {
-			const { data: Portfolios, error } = await supabase
-				.from('Portfolios')
-				.select('user_id');
-		};
-
-		getPortfolios();
-	}, []);
-
 	const [active, setActive] = React.useState(1);
 	const form = useForm({
 		initialValues: {
