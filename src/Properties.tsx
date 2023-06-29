@@ -4,9 +4,12 @@ import { Grid } from '@mantine/core';
 
 import { PropertyCard } from './PropertyCard';
 import supabase from './client';
+import { Database } from './schema';
 
 export const Properties = () => {
-	const [properties, setProperties] = React.useState([]);
+	const [properties, setProperties] = React.useState<
+		Database['public']['Tables']['Properties']['Row'][]
+	>([]);
 
 	React.useEffect(() => {
 		const getProperties = async () => {
