@@ -29,7 +29,7 @@ export const Properties = () => {
 						city={property.city}
 						state={property.state}
 						zip={property.zip}
-						type={property.type}
+						type={property.property_type}
 						image_url={property.image_url}
 					/>
 				</Grid.Col>
