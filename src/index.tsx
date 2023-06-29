@@ -8,12 +8,13 @@ import {
 	MantineProvider,
 } from '@mantine/core';
 
+import { Properties } from './Properties/PropertiesGrid';
+import { PropertyDetails } from './Properties/PropertyDetails';
 import AuthProvider from './context/AuthProvider';
 
 import Account from './Account';
 import App from './App';
 import { Logout } from './Logout';
-import { Properties } from './Properties';
 import RecoveryEmail from './RecoveryEmail';
 import ResetPassword from './ResetPassword';
 import { SetupStepper } from './SetupStepper';
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
 			{
 				path: '/properties',
 				element: <Properties />,
+			},
+			{
+				path: '/properties/:property_id',
+				element: <PropertyDetails />,
 			},
 			{
 				path: '/login',

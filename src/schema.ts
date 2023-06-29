@@ -129,6 +129,7 @@ export interface Database {
 					document_links: string[] | null;
 					id: string;
 					image_url: string | null;
+					name: string | null;
 					property_type: string | null;
 					state: string;
 					zip: number;
@@ -140,6 +141,7 @@ export interface Database {
 					document_links?: string[] | null;
 					id?: string;
 					image_url?: string | null;
+					name?: string | null;
 					property_type?: string | null;
 					state: string;
 					zip: number;
@@ -151,6 +153,7 @@ export interface Database {
 					document_links?: string[] | null;
 					id?: string;
 					image_url?: string | null;
+					name?: string | null;
 					property_type?: string | null;
 					state?: string;
 					zip?: number;
