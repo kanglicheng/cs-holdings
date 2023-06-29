@@ -3,7 +3,7 @@ export type Json =
 	| number
 	| boolean
 	| null
-	| { [key: string]: Json }
+	| { [key: string]: Json | undefined }
 	| Json[];
 
 export interface Database {
@@ -34,35 +34,128 @@ export interface Database {
 	};
 	public: {
 		Tables: {
+			PortfolioProperties: {
+				Row: {
+					created_at: string | null;
+					number_of_shares: number | null;
+					portfolio_id: string;
+					property_id: string;
+				};
+				Insert: {
+					created_at?: string | null;
+					number_of_shares?: number | null;
+					portfolio_id: string;
+					property_id: string;
+				};
+				Update: {
+					created_at?: string | null;
+					number_of_shares?: number | null;
+					portfolio_id?: string;
+					property_id?: string;
+				};
+				Relationships: [
+					{
+						foreignKeyName: 'PortfolioProperties_property_id_fkey';
+						columns: ['property_id'];
+						referencedRelation: 'Properties';
+						referencedColumns: ['id'];
+					}
+				];
+			};
+			Portfolios: {
+				Row: {
+					account_value: number | null;
+					created_at: string | null;
+					user_id: string;
+				};
+				Insert: {
+					account_value?: number | null;
+					created_at?: string | null;
+					user_id: string;
+				};
+				Update: {
+					account_value?: number | null;
+					created_at?: string | null;
+					user_id?: string;
+				};
+				Relationships: [
+					{
+						foreignKeyName: 'Portfolios_user_id_fkey';
+						columns: ['user_id'];
+						referencedRelation: 'Profiles';
+						referencedColumns: ['id'];
+					}
+				];
+			};
+			Profiles: {
+				Row: {
+					created_at: string | null;
+					email: string | null;
+					first_name: string | null;
+					id: string;
+					last_name: string | null;
+					verified: boolean | null;
+				};
+				Insert: {
+					created_at?: string | null;
+					email?: string | null;
+					first_name?: string | null;
+					id: string;
+					last_name?: string | null;
+					verified?: boolean | null;
+				};
+				Update: {
+					created_at?: string | null;
+					email?: string | null;
+					first_name?: string | null;
+					id?: string;
+					last_name?: string | null;
+					verified?: boolean | null;
+				};
+				Relationships: [
+					{
+						foreignKeyName: 'Profiles_id_fkey';
+						columns: ['id'];
+						referencedRelation: 'users';
+						referencedColumns: ['id'];
+					}
+				];
+			};
 			Properties: {
 				Row: {
 					address: string;
 					city: string | null;
 					created_at: string | null;
-					id: number;
+					document_links: string[] | null;
+					id: string;
 					image_url: string | null;
+					name: string | null;
+					property_type: string | null;
 					state: string;
-					type: string | null;
 					zip: number;
 				};
 				Insert: {
 					address: string;
 					city?: string | null;
 					created_at?: string | null;
-					id?: number;
+					document_links?: string[] | null;
+					id?: string;
 					image_url?: string | null;
+					name?: string | null;
+					property_type?: string | null;
 					state: string;
-					type?: string | null;
 					zip: number;
 				};
 				Update: {
 					address?: string;
 					city?: string | null;
 					created_at?: string | null;
-					id?: number;
+					document_links?: string[] | null;
+					id?: string;
 					image_url?: string | null;
+					name?: string | null;
+					property_type?: string | null;
 					state?: string;
-					type?: string | null;
 					zip?: number;
 				};
 				Relationships: [];
