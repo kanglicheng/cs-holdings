@@ -7,10 +7,8 @@ export const Logout = () => {
 
 	try {
 		signOut();
-	} catch (err) {
-		if (err) {
-			return <div>Error occurred, please try again.</div>;
-		}
+	} catch (error: unknown) {
+		return <div>Error occurred, please try again.</div>;
 	}
 	return <div>You have successfully logged out</div>;
 };
