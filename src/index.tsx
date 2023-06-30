@@ -14,7 +14,7 @@ import AuthProvider from './context/AuthProvider';
 
 import Account from './Account';
 import App from './App';
-import { Logout } from './Logout';
+import Logout from './Logout';
 import RecoveryEmail from './RecoveryEmail';
 import ResetPassword from './ResetPassword';
 import { SetupStepper } from './SetupStepper';
@@ -75,7 +75,7 @@ const router = createBrowserRouter([
 
 function Parent() {
 	const [colorScheme, setColorScheme] = React.useState<ColorScheme>('light');
-	const toggleColorScheme = (value) =>
+	const toggleColorScheme = (value: ColorScheme) =>
 		setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
 
 	return (
@@ -96,8 +96,9 @@ function Parent() {
 	);
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<Parent />);
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+	<Parent />
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
