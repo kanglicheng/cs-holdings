@@ -18,32 +18,30 @@ import {
 import { useAuth } from './context/AuthProvider';
 
 export default function Signin() {
-	const emailRef = React.useRef(null);
-	const passwordRef = React.useRef(null);
+	const emailRef = React.useRef<HTMLInputElement>(null);
+	const passwordRef = React.useRef<HTMLInputElement>(null);
 	const [error, setError] = React.useState('');
 	const [loading, setLoading] = React.useState(false);
 	const navigate = useNavigate();
 
 	const { login } = useAuth();
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
+	const handleSubmit = async (event: React.FormEvent) => {
+		event.preventDefault();
 
 		try {
 			setLoading(true);
 			const {
 				data: { user, session },
 				error,
-			} = await login(emailRef.current.value, passwordRef.current.value);
+			} = await login(emailRef.current?.value, passwordRef.current?.value);
 
 			if (error) setError(error.message);
-			else if (user && session) navigate('/');
-		} catch (error) {
-			setError(error.message);
-		} finally {
-			setLoading(false);
-			navigate('/home');
+			else if (user && session) navigate('/home');
+		} catch (error: unknown) {
+			setError((error as Error)?.message ?? String(error));
 		}
+		setLoading(false);
 	};
 
 	return (

@@ -17,19 +17,19 @@ import {
 import { useAuth } from './context/AuthProvider';
 
 export default function Signup() {
-	const emailRef = React.useRef(null);
-	const passwordRef = React.useRef(null);
+	const emailRef = React.useRef<HTMLInputElement>(null);
+	const passwordRef = React.useRef<HTMLInputElement>(null);
 	const [loading, setLoading] = React.useState(false);
 	const [msg, setMsg] = React.useState('');
 	const { register } = useAuth();
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
+	const handleSubmit = async (event: React.FormEvent) => {
+		event.preventDefault();
 		try {
 			setLoading(true);
 			const { data, error } = await register(
-				emailRef.current.value,
-				passwordRef.current.value
+				emailRef.current?.value,
+				passwordRef.current?.value
 			);
 			if (error) setMsg(error.message);
 			else if (data)
