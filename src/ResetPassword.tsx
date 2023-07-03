@@ -22,8 +22,8 @@ export default function ResetPassword() {
 
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
+		setLoading(true);
 		try {
-			setLoading(true);
 			const { data, error } = await updatePassword(passwordRef.current?.value);
 			if (error) setErrorMsg(error.message);
 			else if (data) navigate('/');

@@ -13,24 +13,26 @@ import {
 	TextInput,
 	Title,
 } from '@mantine/core';
+import { useForm } from '@mantine/form';
 
 import { useAuth } from './context/AuthProvider';
 
 export default function Signup() {
-	const emailRef = React.useRef<HTMLInputElement>(null);
-	const passwordRef = React.useRef<HTMLInputElement>(null);
 	const [loading, setLoading] = React.useState(false);
 	const [msg, setMsg] = React.useState('');
 	const { register } = useAuth();
+	const form = useForm({
+		initialValues: {
+			email: '',
+			password: '',
+		},
+	});
 
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
 		try {
 			setLoading(true);
-			const { data, error } = await register(
-				emailRef.current?.value,
-				passwordRef.current?.value
-			);
+			const { data, error } = await register(form.values);
 			if (error) setMsg(error.message);
 			else if (data)
 				setMsg(
@@ -59,7 +61,7 @@ export default function Signup() {
 							label="Email"
 							type="email"
 							placeholder="Email address"
-							ref={emailRef}
+							{...form.getInputProps('email')}
 							required
 						/>
 						<PasswordInput
@@ -67,7 +69,7 @@ export default function Signup() {
 							autoComplete="new-password"
 							minLength={6}
 							placeholder="Password"
-							ref={passwordRef}
+							{...form.getInputProps('password')}
 							required
 						/>
 						{msg && <Alert>{msg}</Alert>}

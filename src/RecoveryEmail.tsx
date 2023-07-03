@@ -26,11 +26,11 @@ export default function RecoveryEmail() {
 
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
+		setLoading(true);
 		try {
-			setLoading(true);
 			const { data, error } = await passwordReset(emailRef.current?.value);
 			if (error) setMsg(error.message);
-			if (data) setMsg('Password reset has been sent to your email');
+			else if (data) setMsg('Password reset has been sent to your email');
 		} catch (error: unknown) {
 			setMsg((error as Error)?.message ?? String(error));
 		}
