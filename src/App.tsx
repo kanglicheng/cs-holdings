@@ -144,6 +144,12 @@ function MainLinks() {
 			route: '/account',
 		},
 		{
+			icon: <IconUser size="1rem" />,
+			color: 'blue',
+			label: 'Portfolio',
+			route: '/portfolio',
+		},
+		{
 			icon: <IconLogout2 size="1rem" />,
 			color: 'blue',
 			label: 'Logout',
