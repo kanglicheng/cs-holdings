@@ -36,13 +36,13 @@ export const Properties = () => {
 			{properties.map((property) => (
 				<Grid.Col key={property.id} md={6} lg={4}>
 					<PropertyCard
-						property_id={property.id}
+						id={property.id}
 						name={property.name}
 						address={property.address}
 						city={property.city}
 						state={property.state}
 						zip={property.zip}
-						type={property.property_type}
+						property_type={property.property_type}
 						image_url={property.image_url}
 					/>
 				</Grid.Col>

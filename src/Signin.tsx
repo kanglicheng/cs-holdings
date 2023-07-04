@@ -14,36 +14,33 @@ import {
 	TextInput,
 	Title,
 } from '@mantine/core';
+import { useForm } from '@mantine/form';
 
 import { useAuth } from './context/AuthProvider';
 
 export default function Signin() {
-	const emailRef = React.useRef(null);
-	const passwordRef = React.useRef(null);
-	const [error, setError] = React.useState('');
 	const [loading, setLoading] = React.useState(false);
+	const [msg, setMsg] = React.useState('');
 	const navigate = useNavigate();
-
 	const { login } = useAuth();
+	const form = useForm({
+		initialValues: {
+			email: '',
+			password: '',
+		},
+	});
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-
+	const handleSubmit = async (event: React.FormEvent) => {
+		event.preventDefault();
+		setLoading(true);
 		try {
-			setLoading(true);
-			const {
-				data: { user, session },
-				error,
-			} = await login(emailRef.current.value, passwordRef.current.value);
-
-			if (error) setError(error.message);
-			else if (user && session) navigate('/');
-		} catch (error) {
-			setError(error.message);
-		} finally {
-			setLoading(false);
-			navigate('/home');
+			const { data, error } = await login(form.values);
+			if (error) setMsg(error.message);
+			else if (data) navigate('/home');
+		} catch (error: unknown) {
+			setMsg((error as Error)?.message ?? String(error));
 		}
+		setLoading(false);
 	};
 
 	return (
@@ -63,7 +60,7 @@ export default function Signin() {
 							label="Email"
 							type="email"
 							placeholder="Email address"
-							ref={emailRef}
+							{...form.getInputProps('email')}
 							required
 						/>
 						<PasswordInput
@@ -71,10 +68,10 @@ export default function Signin() {
 							autoComplete="current-password"
 							minLength={6}
 							placeholder="Password"
-							ref={passwordRef}
+							{...form.getInputProps('password')}
 							required
 						/>
-						{error && <Alert>{error}</Alert>}
+						{msg && <Alert>{msg}</Alert>}
 						<Group position="apart">
 							<Anchor component={Link} to={'/reset-password'}>
 								Forgot password?

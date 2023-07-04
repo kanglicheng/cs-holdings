@@ -22,20 +22,19 @@ export default function RecoveryEmail() {
 	const { passwordReset } = useAuth();
 	const [loading, setLoading] = React.useState(false);
 	const [msg, setMsg] = React.useState('');
-	const emailRef = React.useRef(null);
+	const emailRef = React.useRef<HTMLInputElement>(null);
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
+	const handleSubmit = async (event: React.FormEvent) => {
+		event.preventDefault();
+		setLoading(true);
 		try {
-			setLoading(true);
-			const { data, error } = await passwordReset(emailRef.current.value);
+			const { data, error } = await passwordReset(emailRef.current?.value);
 			if (error) setMsg(error.message);
-			if (data) setMsg('Password reset has been sent to your email');
-		} catch (error) {
-			console.error(error.message);
-		} finally {
-			setLoading(false);
+			else if (data) setMsg('Password reset has been sent to your email');
+		} catch (error: unknown) {
+			setMsg((error as Error)?.message ?? String(error));
 		}
+		setLoading(false);
 	};
 
 	return (

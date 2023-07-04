@@ -12,33 +12,29 @@ import {
 } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons-react';
 
-interface PropertyCardProps {
-	address: string;
-	city: string;
-	state: string;
-	zip: number;
-	type: string;
-	name: string;
-	image_url?: string;
-	property_id: string;
-}
+import type { PropertyTableRow } from '../types';
+
+type PropertyCardProps = Omit<
+	PropertyTableRow,
+	'created_at' | 'document_links'
+>;
 
 export const PropertyCard = ({
 	address,
 	city,
 	state,
 	zip,
-	type,
+	property_type,
 	image_url,
 	name,
-	property_id,
+	id,
 }: PropertyCardProps) => {
 	return (
 		<Card shadow="sm" padding="lg" radius="md" withBorder>
 			<Card.Section>
 				<NavLink
 					component={Link}
-					to={`/properties/${property_id}`}
+					to={`/properties/${id}`}
 					label={
 						<Title fw={450} order={3}>
 							{name}
@@ -90,7 +86,7 @@ export const PropertyCard = ({
 					</Text>
 					<Text mx={'sm'} fw={500}>
 						<b>Investment Type: </b>
-						{type}
+						{property_type}
 					</Text>
 				</Container>
 			</Card.Section>

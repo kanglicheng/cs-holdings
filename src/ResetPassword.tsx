@@ -15,20 +15,20 @@ import { useAuth } from './context/AuthProvider';
 
 export default function ResetPassword() {
 	const { updatePassword } = useAuth();
-	const passwordRef = React.useRef(null);
+	const passwordRef = React.useRef<HTMLInputElement>(null);
 	const [errorMsg, setErrorMsg] = React.useState('');
 	const [loading, setLoading] = React.useState(false);
 	const navigate = useNavigate();
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
+	const handleSubmit = async (event: React.FormEvent) => {
+		event.preventDefault();
+		setLoading(true);
 		try {
-			setLoading(true);
-			const { data, error } = await updatePassword(passwordRef.current.value);
+			const { data, error } = await updatePassword(passwordRef.current?.value);
 			if (error) setErrorMsg(error.message);
 			else if (data) navigate('/');
-		} catch (error) {
-			setErrorMsg(error.message);
+		} catch (error: unknown) {
+			setErrorMsg((error as Error)?.message ?? String(error));
 		}
 		setLoading(false);
 	};
